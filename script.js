@@ -1,98 +1,102 @@
-// --- FONTIFY STUDIO PRO - SCRIPT.JS ---
+// --- FONTIFY PRO V2 - SCRIPT.JS ---
 
 document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
     const userInput = document.getElementById('userInput');
-    const textareaWrapper = document.querySelector('.textarea-wrapper');
-    const fontListContainer = document.getElementById('fontListContainer');
+    const fontGrid = document.getElementById('fontGrid');
     const copyBtn = document.getElementById('copyBtn');
     const resetBtn = document.getElementById('resetBtn');
     const toast = document.getElementById('toast');
+    
+    // Hamburger Menu Elements
+    const openNavBtn = document.getElementById('open-nav-btn');
+    const closeNavBtn = document.getElementById('close-nav-btn');
+    const navDrawer = document.getElementById('nav-drawer');
+    const navOverlay = document.getElementById('nav-overlay');
+
+    // Text Tools Buttons
+    const btnUppercase = document.getElementById('btn-uppercase');
+    const btnLowercase = document.getElementById('btn-lowercase');
+    const btnTitlecase = document.getElementById('btn-titlecase');
+    const btnReverse = document.getElementById('btn-reverse');
 
     // State Variables
-    let originalText = ''; // User ka asli, non-styled text yahan save hoga
-    let activeStyleName = null; // Jo font style select kiya gaya hai, uska naam
+    let originalText = '';
+    let activeStyleName = null;
+
+    // --- NAVIGATION DRAWER (HAMBURGER MENU) LOGIC ---
+    const openNav = () => {
+        navDrawer.classList.add('open');
+        navOverlay.classList.add('visible');
+    };
+    const closeNav = () => {
+        navDrawer.classList.remove('open');
+        navOverlay.classList.remove('visible');
+    };
+    openNavBtn.addEventListener('click', openNav);
+    closeNavBtn.addEventListener('click', closeNav);
+    navOverlay.addEventListener('click', closeNav);
 
     // --- SMART TEXTBOX (AUTO-RESIZE) ---
-    // Yeh function text ke hisab se text box ka size badalta hai
     const autoResizeTextarea = () => {
-        // Yeh content ko replicate karke aek invisible div mein daalta hai taake height pata chale
-        textareaWrapper.dataset.replicatedValue = userInput.value;
+        userInput.style.height = 'auto';
+        userInput.style.height = userInput.scrollHeight + 'px';
     };
     userInput.addEventListener('input', autoResizeTextarea);
 
     // --- CORE TEXT TRANSFORMATION ---
     const transformText = (text, styleName) => {
-        if (!styleName) return text; // Agar koi style select nahi, to original text dikhao
-        
+        if (!styleName) return text;
         const style = fontLibrary.find(s => s.name === styleName);
-        if (!style) return text; // Agar style na mile, to original text dikhao
-
-        if (style.transform) return style.transform(text); // Special functions ke liye
-        
+        if (!style) return text;
+        if (style.transform) return style.transform(text);
         let result = '';
         for (const char of text) {
-            result += style.map[char] || char; // Character map se badlo
+            result += style.map[char] || char;
         }
         return result;
     };
 
-    // --- FONT PALETTE RENDERING ---
-    // Yeh neeche sliding font list banata hai
-    const renderPalette = () => {
+    // --- 3-ROW FONT GRID RENDERING ---
+    const renderFontGrid = () => {
         let html = '';
         for (const style of fontLibrary) {
             html += `
                 <div class="font-item" data-style-name="${style.name}">
                     <div class="font-preview">${transformText('Style', style.name)}</div>
+                    <div class="font-name">${style.name}</div>
                 </div>
             `;
         }
-        fontListContainer.innerHTML = html;
+        fontGrid.innerHTML = html;
     };
 
     // --- STAGE UPDATE LOGIC ---
-    // Yeh function upar "Stage" wale text ko update karta hai
     const updateStage = () => {
         userInput.value = transformText(originalText, activeStyleName);
-        autoResizeTextarea(); // Size bhi update karo
+        autoResizeTextarea();
     };
 
     // --- EVENT LISTENERS ---
-
-    // Jab user text box mein kuch likhe
     userInput.addEventListener('input', () => {
-        // Har baar jab user likhe, hum original text ko update karenge
+        originalText = userInput.value;
         if (activeStyleName) {
-            // Agar koi style laga hua hai, to hum usay hata kar original text update karenge
-            // Yeh thora complex ho sakta hai, isliye hum reset ka istemal karenge
-            // Aasan tareeka:
-            originalText = userInput.value;
-            activeStyleName = null;
-            document.querySelector('.font-item.active')?.classList.remove('active');
-        } else {
-            originalText = userInput.value;
+            updateStage();
         }
     });
 
-    // Jab user neeche sliding palette se koi font select kare
-    fontListContainer.addEventListener('click', (e) => {
+    fontGrid.addEventListener('click', (e) => {
         const fontItem = e.target.closest('.font-item');
         if (!fontItem) return;
 
-        // Purane active item se 'active' class hatao
         document.querySelector('.font-item.active')?.classList.remove('active');
-        
-        // Naye item par 'active' class lagao
         fontItem.classList.add('active');
         
-        // Naya style save karo aur stage update karo
         activeStyleName = fontItem.dataset.styleName;
-        originalText = userInput.value; // Text ko save karlo
+        originalText = userInput.value;
         updateStage();
     });
     
-    // Reset Button ka Logic
     resetBtn.addEventListener('click', () => {
         activeStyleName = null;
         userInput.value = originalText;
@@ -100,22 +104,31 @@ document.addEventListener('DOMContentLoaded', () => {
         autoResizeTextarea();
     });
 
-    // Copy Button ka Logic
     copyBtn.addEventListener('click', () => {
-        if (!userInput.value) return; // Agar box khali hai to kuch na karo
-        
+        if (!userInput.value) return;
         navigator.clipboard.writeText(userInput.value).then(() => {
-            // Toast notification dikhao
             toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 2000);
+            setTimeout(() => toast.classList.remove('show'), 2000);
         });
     });
+    
+    // --- TEXT TOOLS LOGIC ---
+    const applyTool = (transformation) => {
+        userInput.value = transformation(userInput.value);
+        originalText = userInput.value;
+        if (activeStyleName) {
+            updateStage();
+        }
+        autoResizeTextarea();
+    };
+
+    btnUppercase.addEventListener('click', () => applyTool(text => text.toUpperCase()));
+    btnLowercase.addEventListener('click', () => applyTool(text => text.toLowerCase()));
+    btnReverse.addEventListener('click', () => applyTool(text => text.split('').reverse().join('')));
+    btnTitlecase.addEventListener('click', () => applyTool(text => text.toLowerCase().replace(/(^|\s)\S/g, L => L.toUpperCase())));
+
 
     // --- INITIALIZATION ---
-    // Page load hone par palette banao
-    renderPalette();
-    // Shuru mein text box ka size set karo
+    renderFontGrid();
     autoResizeTextarea();
 });
