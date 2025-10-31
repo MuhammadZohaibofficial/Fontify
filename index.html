@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fontify Ultimate - Professional Text Toolkit</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Fontify Ultimate</h1>
+            <div class="theme-switcher">
+                <input type="checkbox" id="themeToggle">
+                <label for="themeToggle" class="slider"></label>
+            </div>
+        </header>
+
+        <main>
+            <textarea id="userInput" placeholder="Type or paste your text here..."></textarea>
+            
+            <div class="toolbar">
+                <button id="btn-uppercase">UPPERCASE</button>
+                <button id="btn-lowercase">lowercase</button>
+                <button id="btn-titlecase">Title Case</button>
+                <button id="btn-reverse">Reverse</button>
+                <button id="btn-clear">Clear</button>
+            </div>
+            <div class="counters">
+                <span>Words: <b id="wordCount">0</b></span>
+                <span>Characters: <b id="charCount">0</b></span>
+            </div>
+
+            <div id="outputContainer"></div>
+            
+            <button id="loadMoreBtn">Load More Styles</button>
+        </main>
+    </div>
+    <div id="toast">Copied to clipboard!</div>
+
+    <script src="fonts.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
