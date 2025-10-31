@@ -1,4 +1,4 @@
-// --- FONTIFY PRO V2 - FINAL SCRIPT.JS ---
+// --- FONTIFY PRO V2 - SCRIPT.JS (FINAL & FIXED) ---
 
 document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
@@ -8,13 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const resetBtn = document.getElementById('resetBtn');
     const toast = document.getElementById('toast');
     
-    // Hamburger Menu Elements
     const openNavBtn = document.getElementById('open-nav-btn');
     const closeNavBtn = document.getElementById('close-nav-btn');
     const navDrawer = document.getElementById('nav-drawer');
     const navOverlay = document.getElementById('nav-overlay');
 
-    // Text Tools Buttons
     const btnUppercase = document.getElementById('btn-uppercase');
     const btnLowercase = document.getElementById('btn-lowercase');
     const btnTitlecase = document.getElementById('btn-titlecase');
@@ -22,22 +20,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnClear = document.getElementById('btn-clear');
     const btnDownload = document.getElementById('btn-download');
 
-    // State Variables
     let originalText = '';
     let activeStyleName = null;
 
-    // --- NAVIGATION LOGIC (Waisa hi hai) ---
-    const openNav = () => { /* ... */ };
-    const closeNav = () => { /* ... */ };
+    const openNav = () => { navDrawer.classList.add('open'); navOverlay.classList.add('visible'); };
+    const closeNav = () => { navDrawer.classList.remove('open'); navOverlay.classList.remove('visible'); };
     openNavBtn.addEventListener('click', openNav);
     closeNavBtn.addEventListener('click', closeNav);
     navOverlay.addEventListener('click', closeNav);
-    
-    // --- SMART TEXTBOX LOGIC (Waisa hi hai) ---
-    const autoResizeTextarea = () => { /* ... */ };
+
+    const autoResizeTextarea = () => { userInput.style.height = 'auto'; userInput.style.height = userInput.scrollHeight + 'px'; };
     userInput.addEventListener('input', autoResizeTextarea);
 
-    // --- CORE LOGIC (YAHAN SAB KUCH THEEK KIYA GAYA HAI) ---
     const transformText = (text, styleName) => {
         if (!styleName) return text;
         const style = fontLibrary.find(s => s.name === styleName);
@@ -53,47 +47,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const renderFontGrid = () => {
         let html = '';
         for (const style of fontLibrary) {
-            html += `
-                <div class="font-item" data-style-name="${style.name}">
-                    <div class="font-preview">${transformText('Style', style.name)}</div>
-                    <div class="font-name">${style.name}</div>
-                </div>
-            `;
+            html += `<div class="font-item" data-style-name="${style.name}"><div class="font-preview">${transformText('Style', style.name)}</div><div class="font-name">${style.name}</div></div>`;
         }
         fontGrid.innerHTML = html;
     };
     
-    // *** YEH HAI ASAL FIX ***
-    // Yeh naya logic kabhi fail nahi hoga
-    const handleInputChange = () => {
-        // Step 1: Hamesha originalText ko seedha user ke input se update karo
-        originalText = userInput.value;
-        
-        // Step 2: Stage ko naye original text aur active style ke hisab se update karo
-        userInput.value = transformText(originalText, activeStyleName);
-        
-        autoResizeTextarea();
+    const handleInputChange = (event) => {
+        if (event.isTrusted) { // Only update originalText if user is typing
+            originalText = userInput.value;
+            activeStyleName = null;
+            document.querySelector('.font-item.active')?.classList.remove('active');
+        }
     };
 
-    // Jab user text box mein kuch likhe
     userInput.addEventListener('input', handleInputChange);
 
-    // Jab user font select kare
     fontGrid.addEventListener('click', (e) => {
         const fontItem = e.target.closest('.font-item');
         if (!fontItem) return;
-
         document.querySelector('.font-item.active')?.classList.remove('active');
         fontItem.classList.add('active');
-        
         activeStyleName = fontItem.dataset.styleName;
-        
-        // Sirf view ko update karo, original text ko nahi chherna
         userInput.value = transformText(originalText, activeStyleName);
         autoResizeTextarea();
     });
     
-    // Reset Button ka Logic (Ab yeh 100% kaam karega)
     resetBtn.addEventListener('click', () => {
         activeStyleName = null;
         userInput.value = originalText;
@@ -101,13 +79,17 @@ document.addEventListener('DOMContentLoaded', () => {
         autoResizeTextarea();
     });
 
-    // Copy Button ka Logic
-    copyBtn.addEventListener('click', () => { /* ... (Waisa hi hai) ... */ });
+    copyBtn.addEventListener('click', () => {
+        if (!userInput.value) return;
+        navigator.clipboard.writeText(userInput.value).then(() => {
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2000);
+        });
+    });
     
-    // --- TEXT TOOLS LOGIC (NAYE BUTTONS KE SAATH) ---
     const applyTool = (transformation) => {
-        originalText = transformation(originalText); // Original text par tool apply karo
-        userInput.value = transformText(originalText, activeStyleName); // View ko update karo
+        originalText = transformation(originalText);
+        userInput.value = transformText(originalText, activeStyleName);
         autoResizeTextarea();
     };
 
@@ -115,15 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
     btnLowercase.addEventListener('click', () => applyTool(text => text.toLowerCase()));
     btnReverse.addEventListener('click', () => applyTool(text => text.split('').reverse().join('')));
     btnTitlecase.addEventListener('click', () => applyTool(text => text.toLowerCase().replace(/(^|\s)\S/g, L => L.toUpperCase())));
-
-    btnClear.addEventListener('click', () => {
-        originalText = '';
-        activeStyleName = null;
-        userInput.value = '';
-        document.querySelector('.font-item.active')?.classList.remove('active');
-        autoResizeTextarea();
-    });
-
+    btnClear.addEventListener('click', () => { originalText = ''; activeStyleName = null; userInput.value = ''; document.querySelector('.font-item.active')?.classList.remove('active'); autoResizeTextarea(); });
     btnDownload.addEventListener('click', () => {
         const textToSave = userInput.value;
         if (!textToSave) return;
@@ -135,7 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
         URL.revokeObjectURL(a.href);
     });
 
-    // --- INITIALIZATION ---
     renderFontGrid();
     autoResizeTextarea();
 });
