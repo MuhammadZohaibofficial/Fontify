@@ -1,13 +1,13 @@
-/* --- FONTIFY STUDIO PRO - STYLE.CSS --- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+/* --- FONTIFY PRO V2 - STYLE.CSS --- */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display-swap');
 
 :root {
-    --bg-dark: #0D1117;
-    --surface-dark: #161B22;
-    --text-dark: #C9D1D9;
-    --primary-color: #58A6FF;
-    --border-dark: #30363D;
-    
+    --primary-color: #007AFF;
+    --background-color: #F0F2F5; /* Light grey background */
+    --surface-color: #FFFFFF; /* White cards */
+    --text-color: #1D1D1F; /* Dark text */
+    --subtle-text: #6E6E73;
+    --border-color: #E5E5EA;
     --transition: 0.3s ease;
 }
 
@@ -15,136 +15,133 @@
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    font-family: 'Inter', sans-serif;
-    background-color: var(--bg-dark);
-    color: var(--text-dark);
-    padding: 2rem 1rem;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    padding: 1rem;
     -webkit-font-smoothing: antialiased;
 }
 
-.container { max-width: 700px; margin: 0 auto; }
+.container { max-width: 500px; margin: 0 auto; }
 
-/* Background Gradient Effects */
-.gradient-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
-.gradient-ball-1, .gradient-ball-2, .gradient-ball-3 {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(120px);
+/* Header & Menu Button */
+header {
+    display: flex;
+    align-items: center;
+    padding: 1rem 0;
+    margin-bottom: 1rem;
 }
-.gradient-ball-1 { width: 400px; height: 400px; background: rgba(88, 166, 255, 0.2); top: -100px; left: -100px; }
-.gradient-ball-2 { width: 300px; height: 300px; background: rgba(255, 88, 203, 0.15); bottom: -50px; right: -50px; }
-.gradient-ball-3 { width: 250px; height: 250px; background: rgba(88, 255, 155, 0.1); bottom: 100px; left: 50px; }
+.menu-btn { background: none; border: none; cursor: pointer; padding: 0.5rem; }
+.menu-btn svg { fill: var(--text-color); }
+.header-title { font-size: 1.5rem; font-weight: 800; margin: 0 auto; transform: translateX(-12px); }
 
-/* Header */
-header { text-align: center; margin-bottom: 3rem; }
-header h1 { font-size: 2.5rem; font-weight: 700; }
-header p { font-size: 1.1rem; color: #8B949E; margin-top: 0.5rem; }
-
-/* The "Stage" (Smart Text Box) */
-.stage-container {
-    background-color: var(--surface-dark);
-    border: 1px solid var(--border-dark);
-    border-radius: 16px;
-    padding: 1.5rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+/* Navigation Drawer (Hamburger Menu) */
+.nav-drawer {
+    position: fixed;
+    top: 0;
+    left: -300px; /* Shuru mein hide rakhein */
+    width: 280px;
+    height: 100%;
+    background-color: var(--surface-color);
+    box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+    padding: 2rem;
+    transition: left var(--transition);
+    z-index: 1001;
 }
-
-.textarea-wrapper {
-    position: relative;
-    display: grid;
-}
-.textarea-wrapper::after {
-    content: attr(data-replicated-value) " ";
-    white-space: pre-wrap;
+.nav-drawer.open { left: 0; }
+.nav-drawer ul { list-style: none; }
+.nav-drawer ul li a { display: block; padding: 1rem 0; font-size: 1.1rem; font-weight: 700; text-decoration: none; color: var(--text-color); }
+.close-btn { position: absolute; top: 1rem; right: 1rem; font-size: 2rem; background: none; border: none; cursor: pointer; color: var(--subtle-text); }
+.nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    opacity: 0;
     visibility: hidden;
-    grid-area: 1 / 1 / 2 / 2;
-    padding: inherit;
-    font: inherit;
-    border: inherit;
+    transition: opacity var(--transition), visibility var(--transition);
 }
+.nav-overlay.visible { opacity: 1; visibility: visible; }
 
+/* Card Layout */
+.card {
+    background-color: var(--surface-color);
+    border-radius: 20px;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.card-header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-color); }
+.card-header h2 { font-size: 1.2rem; }
+.card-body { padding: 1.5rem; }
+
+/* Main Generator Card */
 #userInput {
-    grid-area: 1 / 1 / 2 / 2;
     width: 100%;
     background: transparent;
     border: none;
-    color: var(--text-dark);
-    font-size: 2rem;
+    color: var(--text-color);
+    font-size: 1.8rem;
     line-height: 1.5;
     resize: none;
-    overflow: hidden; /* Scrollbar chupane ke liye */
+    min-height: 50px;
 }
 #userInput:focus { outline: none; }
-#userInput::placeholder { color: #484F58; }
-
-.stage-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border-dark);
-}
-
+#userInput::placeholder { color: #AEAEB2; }
+.stage-actions { display: flex; gap: 1rem; margin-top: 1rem; }
 .stage-actions button {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background-color: transparent;
-    border: 1px solid var(--border-dark);
-    color: var(--text-dark);
-    padding: 0.6rem 1rem;
-    border-radius: 8px;
+    flex: 1;
+    padding: 0.8rem;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 12px;
     cursor: pointer;
-    font-weight: 500;
-    font-size: 0.9rem;
     transition: var(--transition);
 }
-.stage-actions button:hover {
-    background-color: var(--border-dark);
-    border-color: #58A6FF;
-    color: #58A6FF;
-}
-.stage-actions button svg { width: 18px; height: 18px; }
+#copyBtn { background-color: var(--primary-color); color: white; border: none; }
+#copyBtn:hover { background-color: #0056b3; }
+#resetBtn { background-color: var(--border-color); color: var(--text-color); border: none; }
+#resetBtn:hover { background-color: #D1D1D6; }
 
-/* The "Palette" (Sliding Fonts Area) */
-.palette-container { margin-top: 3rem; }
-
-.font-list-wrapper {
-    display: flex;
+/* Font Palette Card (3-Row Sliding Grid) */
+.font-grid-container { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 1rem; }
+.font-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(3, auto);
+    grid-auto-columns: minmax(150px, 1fr);
     gap: 1rem;
-    padding: 1rem 0;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none; /* Firefox */
 }
-.font-list-wrapper::-webkit-scrollbar { display: none; } /* Chrome/Safari */
-
+.font-grid::-webkit-scrollbar { display: none; }
 .font-item {
-    flex: 0 0 auto;
-    padding: 1rem 1.5rem;
-    background-color: var(--surface-dark);
-    border: 1px solid var(--border-dark);
+    background-color: var(--background-color);
     border-radius: 12px;
+    padding: 1rem;
     text-align: center;
     cursor: pointer;
     transition: var(--transition);
-    scroll-snap-align: start;
 }
-.font-item:hover {
-    transform: translateY(-5px);
-    border-color: var(--primary-color);
-}
-.font-item.active {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
-    color: var(--primary-color);
-}
-.font-preview { font-size: 1.5rem; }
+.font-item:hover { transform: scale(1.05); }
+.font-item.active { background-color: var(--primary-color); color: white; }
+.font-preview { font-size: 1.2rem; }
+.font-name { font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem; }
 
-/* Footer */
-footer { text-align: center; margin-top: 4rem; color: #484F58; }
+/* Text Tools Card */
+.toolbar { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.toolbar button {
+    padding: 0.8rem;
+    background-color: var(--border-color);
+    color: var(--text-color);
+    border: none;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: var(--transition);
+}
+.toolbar button:hover { background-color: #D1D1D6; }
 
-/* Toast Notification (same as before) */
-#toast { ... }
+/* Toast Notification */
+#toast { ... } /* Same as before */
