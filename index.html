@@ -3,12 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fontify - Professional Font Tester</title>
-    
-    <!-- Google Fonts: Zyada fonts add kiye gaye hain -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@300;500;700&family=Oswald:wght@400;700&family=Montserrat:wght@400;700&family=Lobster&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Ubuntu:wght@400;700&family=Merriweather:wght@400;700&family=Lato:wght@400;700&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    <title>Fontify - Fancy Text Generator</title>
     
     <style>
         :root {
@@ -17,48 +12,92 @@
             --surface-color: #1e1e1e;
             --text-color: #e0e0e0;
             --dark-grey: #333333;
+            --success-color: #00c853;
         }
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: 'Poppins', sans-serif; background-color: var(--background-color); color: var(--text-color); line-height: 1.6; padding: 1.5rem; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: var(--background-color); color: var(--text-color); line-height: 1.6; padding: 1.5rem; }
         .container { max-width: 900px; margin: 0 auto; text-align: center; }
         header h1 { font-family: 'Lobster', cursive; font-size: clamp(2.5rem, 8vw, 4rem); color: var(--primary-color); margin-bottom: 0.5rem; }
         #userInput { width: 100%; height: 120px; padding: 1rem; font-size: clamp(1.2rem, 4vw, 1.5rem); border-radius: 8px; border: 2px solid var(--dark-grey); background-color: var(--surface-color); color: var(--text-color); margin: 1.5rem 0; resize: vertical; transition: border-color 0.3s ease; }
         #userInput:focus { outline: none; border-color: var(--primary-color); }
-        #fontListContainer { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-        .font-card { background-color: var(--surface-color); border-radius: 8px; padding: 1.5rem; text-align: left; border: 1px solid var(--dark-grey); transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; }
-        .font-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0, 170, 255, 0.15); }
-        .font-name { font-size: 1.25rem; font-weight: 500; color: var(--primary-color); border-bottom: 1px solid var(--dark-grey); padding-bottom: 0.75rem; margin-bottom: 1rem; }
-        .font-preview { font-size: 1.8rem; word-break: break-word; }
+        #outputContainer { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+        .result-card { display: flex; flex-direction: column; background-color: var(--surface-color); border-radius: 8px; border: 1px solid var(--dark-grey); overflow: hidden; }
+        .result-preview { padding: 1.5rem; font-size: 1.5rem; line-height: 1.8; word-break: break-word; text-align: left; flex-grow: 1; }
+        .copy-button { background-color: var(--dark-grey); color: var(--text-color); border: none; padding: 0.8rem; font-size: 1rem; font-weight: bold; cursor: pointer; transition: background-color 0.2s; }
+        .copy-button:hover { background-color: var(--primary-color); }
+        .copy-button.copied { background-color: var(--success-color); }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Fontify</h1>
-            <p>Type anything to see the magic happen!</p>
+            <p>Generate fancy text you can copy and paste anywhere!</p>
         </header>
         <main>
-            <textarea id="userInput" placeholder="Your text here..."></textarea>
-            <div id="fontListContainer"></div>
+            <textarea id="userInput" placeholder="Type your text here..."></textarea>
+            <div id="outputContainer"></div>
         </main>
     </div>
+
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const userInput = document.getElementById('userInput');
-            const fontListContainer = document.getElementById('fontListContainer');
-            const fonts = ['Roboto', 'Poppins', 'Oswald', 'Montserrat', 'Lobster', 'Playfair Display', 'Ubuntu', 'Merriweather', 'Lato', 'Raleway'];
-            const renderFontPreviews = () => {
-                const text = userInput.value.trim() || 'The Quick Brown Fox';
-                fontListContainer.innerHTML = fonts.map(font => `
-                    <div class="font-card">
-                        <div class="font-name">${font}</div>
-                        <p class="font-preview" style="font-family: '${font}', sans-serif;">${text}</p>
-                    </div>
-                `).join('');
+            const outputContainer = document.getElementById('outputContainer');
+
+            // Yeh "Jadoo" hai: Normal haroof ko fancy characters se badalna
+            const characterMaps = {
+                'Bold Fraktur': { 'a': '𝖆', 'b': '𝖇', 'c': '𝖈', 'd': '𝖉', 'e': '𝖊', 'f': '𝖋', 'g': '𝖌', 'h': '𝖍', 'i': '𝖎', 'j': '𝖏', 'k': '𝖐', 'l': '𝖑', 'm': '𝖒', 'n': '𝖓', 'o': '𝖔', 'p': '𝖕', 'q': '𝖖', 'r': '𝖗', 's': '𝖘', 't': '𝖙', 'u': '𝖚', 'v': '𝖛', 'w': '𝖜', 'x': '𝖝', 'y': '𝖞', 'z': '𝖟' },
+                'Cursive': { 'a': '𝒶', 'b': '𝒷', 'c': '𝒸', 'd': '𝒹', 'e': '𝑒', 'f': '𝒻', 'g': '𝑔', 'h': '𝒽', 'i': '𝒾', 'j': '𝒿', 'k': '𝓀', 'l': '𝓁', 'm': '𝓂', 'n': '𝓃', 'o': '𝑜', 'p': '𝓅', 'q': '𝓆', 'r': '𝓇', 's': '𝓈', 't': '𝓉', 'u': '𝓊', 'v': '𝓋', 'w': '𝓌', 'x': '𝓍', 'y': '𝓎', 'z': '𝓏' },
+                'Bubbles': { 'a': 'ⓐ', 'b': 'ⓑ', 'c': 'ⓒ', 'd': 'ⓓ', 'e': 'ⓔ', 'f': 'ⓕ', 'g': 'ⓖ', 'h': 'ⓗ', 'i': 'ⓘ', 'j': 'ⓙ', 'k': 'ⓚ', 'l': 'ⓛ', 'm': 'ⓜ', 'n': 'ⓝ', 'o': 'ⓞ', 'p': 'ⓟ', 'q': 'ⓠ', 'r': 'ⓡ', 's': 'ⓢ', 't': 'ⓣ', 'u': 'ⓤ', 'v': 'ⓥ', 'w': 'ⓦ', 'x': 'ⓧ', 'y': 'ⓨ', 'z': 'ⓩ' },
+                'Square': { 'a': '🄰', 'b': '🄱', 'c': '🄲', 'd': '🄳', 'e': '🄴', 'f': '🄵', 'g': '🄶', 'h': '🄷', 'i': '🄸', 'j': '🄹', 'k': '🄺', 'l': '🄻', 'm': '🄼', 'n': '🄽', 'o': '🄾', 'p': '🄿', 'q': '🅀', 'r': '🅁', 's': '🅂', 't': '🅃', 'u': '🅄', 'v': '🅅', 'w': '🅆', 'x': '🅇', 'y': '🅈', 'z': '🅉' },
+                'Wide': { 'a': 'ａ', 'b': 'ｂ', 'c': 'ｃ', 'd': 'ｄ', 'e': 'ｅ', 'f': 'ｆ', 'g': 'ｇ', 'h': 'ｈ', 'i': 'ｉ', 'j': 'ｊ', 'k': 'ｋ', 'l': 'ｌ', 'm': 'ｍ', 'n': 'ｎ', 'o': 'ｏ', 'p': 'ｐ', 'q': 'ｑ', 'r': 'ｒ', 's': 'ｓ', 't': 'ｔ', 'u': 'ｕ', 'v': 'ｖ', 'w': 'ｗ', 'x': 'ｘ', 'y': 'ｙ', 'z': 'ｚ' }
             };
-            userInput.addEventListener('input', renderFontPreviews);
-            renderFontPreviews();
+
+            const generateText = () => {
+                const text = userInput.value.toLowerCase(); // Sab haroof ko chota kar dein
+                if (!text) {
+                    outputContainer.innerHTML = '';
+                    return;
+                }
+
+                let html = '';
+                for (const styleName in characterMaps) {
+                    const map = characterMaps[styleName];
+                    let transformedText = '';
+                    for (const char of text) {
+                        transformedText += map[char] || char; // Agar harf map mein ho to badlo, warna waisa hi rehne do
+                    }
+                    html += `
+                        <div class="result-card">
+                            <div class="result-preview" data-text="${transformedText}">${transformedText}</div>
+                            <button class="copy-button">Copy</button>
+                        </div>
+                    `;
+                }
+                outputContainer.innerHTML = html;
+            };
+
+            // Copy button ki functionality
+            outputContainer.addEventListener('click', (e) => {
+                if (e.target.classList.contains('copy-button')) {
+                    const button = e.target;
+                    const card = button.closest('.result-card');
+                    const textToCopy = card.querySelector('.result-preview').dataset.text;
+                    
+                    navigator.clipboard.writeText(textToCopy).then(() => {
+                        button.textContent = 'Copied!';
+                        button.classList.add('copied');
+                        setTimeout(() => {
+                            button.textContent = 'Copy';
+                            button.classList.remove('copied');
+                        }, 1500);
+                    });
+                }
+            });
+
+            userInput.addEventListener('input', generateText);
         });
     </script>
 </body>
-      </html>
+</html>
