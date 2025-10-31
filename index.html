@@ -12,8 +12,8 @@
         <button id="close-nav-btn" class="close-btn">&times;</button>
         <ul>
             <li><a href="#generator-card">Font Generator</a></li>
-            <li><a href="#tools-card">Text Tools</a></li>
             <li><a href="#palette-card">Explore Styles</a></li>
+            <li><a href="#tools-card">Text Tools</a></li>
         </ul>
     </nav>
     <div id="nav-overlay" class="nav-overlay"></div>
@@ -27,6 +27,7 @@
         </header>
 
         <main>
+            <!-- Card 1: The Main Generator (Yeh waise hi rahega) -->
             <section id="generator-card" class="card">
                 <div class="card-header"><h2>Generator</h2></div>
                 <div class="card-body">
@@ -40,6 +41,17 @@
                 </div>
             </section>
 
+            <!-- Card 2: The Font Palette (Ab yeh doosre number par hai) -->
+            <section id="palette-card" class="card">
+                <div class="card-header"><h2>Explore Styles</h2></div>
+                <div class="card-body">
+                    <div class="font-grid-container">
+                        <div class="font-grid" id="fontGrid"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Card 3: Text Tools (Ab yeh aakhir mein hai) -->
             <section id="tools-card" class="card">
                 <div class="card-header"><h2>Text Tools</h2></div>
                 <div class="card-body">
@@ -53,15 +65,7 @@
                     </div>
                 </div>
             </section>
-            
-            <section id="palette-card" class="card">
-                <div class="card-header"><h2>Explore Styles</h2></div>
-                <div class="card-body">
-                    <div class="font-grid-container">
-                        <div class="font-grid" id="fontGrid"></div>
-                    </div>
-                </div>
-            </section>
+
         </main>
     </div>
     
