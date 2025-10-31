@@ -1,12 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Basic Meta Tags (Aapne pehle hi add kar diye thay, behtareen!) -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fontify: Fancy Text Generator (Copy & Paste) for Instagram</title>
-    <meta name="description" content="Generate 300+ cool, stylish, and fancy fonts with Fontify. Perfect for Instagram bios, TikTok, Facebook, and more. Simply type, copy, and paste anywhere!">
-    <meta name="keywords" content="font generator, fancy text generator, copy and paste fonts, instagram fonts, stylish text, cool fonts, font changer, aesthetic fonts, tiktok fonts, free fonts">
+    <title>Fontify: Fancy Text Generator (Copy & Paste) for Instagram & TikTok</title>
+    <meta name="description" content="Generate 300+ cool, stylish, and fancy fonts with our Font Generator. Perfect for your Instagram bio, TikTok, Facebook posts, and more. Simply type, copy, and paste anywhere!">
+    <meta name="keywords" content="font generator, fancy text generator, copy and paste fonts, instagram fonts, stylish text, cool fonts, font changer, aesthetic fonts, tiktok fonts, free fonts, text generator, font copy paste">
+
+    <!-- NEW: Open Graph Meta Tags (for Social Media Sharing) -->
+    <meta property="og:title" content="Fontify: Fancy Text & Font Generator">
+    <meta property="og:description" content="Instantly create stylish text for your social media bios and posts.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-website-url.com"> <!-- Yahan apni live website ka URL daalein -->
+    
+    <!-- NEW: Canonical Tag (to avoid duplicate content issues) -->
+    <link rel="canonical" href="https://your-website-url.com"> <!-- Yahan bhi apni live website ka URL daalein -->
+
+    <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- NEW: Schema Markup (for Rich Snippets in Google) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Fontify - Fancy Text Generator",
+      "description": "A free online tool to generate stylish and fancy text fonts that you can copy and paste anywhere.",
+      "url": "https://your-website-url.com", <!-- Yahan bhi apni live website ka URL daalein -->
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      }
+    }
+    </script>
 </head>
 <body>
     <div class="container">
@@ -19,7 +49,7 @@
         </header>
 
         <main>
-            <textarea id="userInput" placeholder="Type or paste your text here..."></textarea>
+            <textarea id="userInput" placeholder="Type or paste your text here..." aria-label="Input text to convert"></textarea>
             
             <div class="toolbar">
                 <button id="btn-uppercase">UPPERCASE</button>
@@ -33,14 +63,21 @@
                 <span>Characters: <b id="charCount">0</b></span>
             </div>
 
-            <div id="outputContainer"></div>
+            <div id="outputContainer" aria-live="polite"></div>
             
             <button id="loadMoreBtn">Load More Styles</button>
         </main>
+        
+        <!-- NEW: SEO Content Section (Aapne plan mein isay pasand kiya tha) -->
+        <section class="seo-content">
+            <h2>About Our Fancy Font Changer</h2>
+            <p>Welcome to Fontify, the ultimate free tool for all your fancy text needs! Our <strong>font generator</strong> allows you to convert normal text into hundreds of cool and aesthetic fonts that you can simply <strong>copy and paste</strong>. Whether you're looking to spice up your <strong>Instagram bio</strong>, create eye-catching <strong>TikTok comments</strong>, or make your Facebook posts stand out, our tool is perfect for you. All styles are created using Unicode characters, ensuring they work perfectly across all major platforms and devices.</p>
+        </section>
+
     </div>
     <div id="toast">Copied to clipboard!</div>
 
     <script src="fonts.js"></script>
     <script src="script.js"></script>
 </body>
-</html>
+    </html>
