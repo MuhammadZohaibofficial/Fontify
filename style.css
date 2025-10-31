@@ -1,5 +1,9 @@
+/* --- FONTIFY ULTIMATE - STYLE.CSS --- */
+/* Google Font for a clean and modern UI */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
+/* --- THEME COLORS (CSS VARIABLES) --- */
+/* Is se Day/Night mode banana bohat asaan ho jaata hai */
 :root {
     --primary-color: #367cff;
     --background-color: #121212;
@@ -20,7 +24,12 @@ body.light-mode {
     --border-color: #dee2e6;
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* --- GENERAL & LAYOUT --- */
+*, *::before, *::after { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
 
 body {
     font-family: 'Inter', sans-serif;
@@ -30,41 +39,210 @@ body {
     padding: 1.5rem;
 }
 
-.container { max-width: 800px; margin: 0 auto; }
-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; }
-header h1 { font-size: clamp(1.8rem, 5vw, 2.5rem); font-weight: 700; color: var(--primary-color); }
+.container { 
+    max-width: 800px; 
+    margin: 0 auto; 
+}
 
-/* Theme Switcher */
-.theme-switcher { position: relative; }
-.slider { cursor: pointer; background-color: var(--surface-color); border: 1px solid var(--border-color); width: 60px; height: 30px; border-radius: 30px; display: block; transition: var(--transition-speed); }
-.slider::before { content: ''; position: absolute; top: 5px; left: 5px; width: 20px; height: 20px; border-radius: 50%; background-color: var(--subtle-text); transition: var(--transition-speed); }
+/* --- HEADER & THEME SWITCHER --- */
+header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 2rem; 
+}
+
+header h1 { 
+    font-size: clamp(1.8rem, 5vw, 2.5rem); 
+    font-weight: 700; 
+    color: var(--primary-color); 
+}
+
+.theme-switcher { 
+    position: relative; 
+}
+
+.slider { 
+    cursor: pointer; 
+    background-color: var(--surface-color); 
+    border: 1px solid var(--border-color); 
+    width: 60px; 
+    height: 30px; 
+    border-radius: 30px; 
+    display: block; 
+    transition: var(--transition-speed); 
+}
+
+.slider::before { 
+    content: ''; 
+    position: absolute; 
+    top: 5px; 
+    left: 5px; 
+    width: 20px; 
+    height: 20px; 
+    border-radius: 50%; 
+    background-color: var(--subtle-text); 
+    transition: var(--transition-speed); 
+}
+
 #themeToggle { display: none; }
 #themeToggle:checked + .slider { background-color: var(--primary-color); }
-#themeToggle:checked + .slider::before { transform: translateX(30px); background-color: white; }
+#themeToggle:checked + .slider::before { 
+    transform: translateX(30px); 
+    background-color: white; 
+}
 
-/* Main Content */
-#userInput { width: 100%; height: 150px; padding: 1rem; font-size: 1.1rem; border-radius: 8px; border: 2px solid var(--border-color); background-color: var(--surface-color); color: var(--text-color); resize: vertical; transition: border-color var(--transition-speed); }
-#userInput:focus { outline: none; border-color: var(--primary-color); }
+/* --- MAIN CONTENT & TOOLBAR --- */
+#userInput { 
+    width: 100%; 
+    height: 150px; 
+    padding: 1rem; 
+    font-size: 1.1rem; 
+    border-radius: 8px; 
+    border: 2px solid var(--border-color); 
+    background-color: var(--surface-color); 
+    color: var(--text-color); 
+    resize: vertical; 
+    transition: border-color var(--transition-speed); 
+}
 
-.toolbar { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
-.toolbar button { background-color: var(--surface-color); color: var(--text-color); border: 1px solid var(--border-color); padding: 0.5rem 1rem; border-radius: 6px; cursor: pointer; font-weight: 600; transition: background-color 0.2s, transform 0.1s; }
-.toolbar button:active { transform: scale(0.95); }
+#userInput:focus { 
+    outline: none; 
+    border-color: var(--primary-color); 
+}
 
-.counters { margin-top: 0.5rem; text-align: right; color: var(--subtle-text); font-size: 0.9rem; }
+.toolbar { 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 0.5rem; 
+    margin-top: 1rem; 
+}
+
+.toolbar button { 
+    background-color: var(--surface-color); 
+    color: var(--text-color); 
+    border: 1px solid var(--border-color); 
+    padding: 0.5rem 1rem; 
+    border-radius: 6px; 
+    cursor: pointer; 
+    font-weight: 600; 
+    transition: background-color 0.2s, transform 0.1s; 
+}
+
+.toolbar button:hover {
+    background-color: var(--border-color);
+}
+
+.toolbar button:active { 
+    transform: scale(0.95); 
+}
+
+.counters { 
+    margin-top: 0.5rem; 
+    text-align: right; 
+    color: var(--subtle-text); 
+    font-size: 0.9rem; 
+}
+
 .counters b { color: var(--text-color); }
 
-#outputContainer { display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 2rem 0; }
-.result-card { background-color: var(--surface-color); border-radius: 8px; border: 1px solid var(--border-color); overflow: hidden; animation: fadeIn 0.5s ease-out forwards; opacity: 0; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+/* --- FONT OUTPUT & CARDS --- */
+#outputContainer { 
+    display: grid; 
+    grid-template-columns: 1fr; 
+    gap: 1rem; 
+    margin: 2rem 0; 
+}
 
-.result-card-header { padding: 0.5rem 1rem; background-color: rgba(0,0,0,0.1); display: flex; justify-content: space-between; align-items: center; }
-.font-name { color: var(--primary-color); font-weight: 600; }
-.font-category { background-color: var(--border-color); color: var(--subtle-text); padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; }
-.result-preview { padding: 1.5rem 1rem; font-size: 1.6rem; word-break: break-word; cursor: pointer; }
+.result-card { 
+    background-color: var(--surface-color); 
+    border-radius: 8px; 
+    border: 1px solid var(--border-color); 
+    overflow: hidden; 
+    opacity: 0; /* Animation ke liye shuru mein hide rakhein */
+    animation: fadeIn 0.5s ease-out forwards; 
+}
 
-#loadMoreBtn { width: 100%; background-color: var(--primary-color); color: white; border: none; padding: 1rem; font-size: 1.1rem; border-radius: 8px; cursor: pointer; font-weight: 700; transition: background-color 0.2s; }
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(15px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+.result-card-header { 
+    padding: 0.5rem 1rem; 
+    background-color: rgba(0,0,0,0.1); 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.font-name { 
+    color: var(--primary-color); 
+    font-weight: 600; 
+}
+
+.font-category { 
+    background-color: var(--border-color); 
+    color: var(--subtle-text); 
+    padding: 0.2rem 0.5rem; 
+    border-radius: 4px; 
+    font-size: 0.8rem; 
+}
+
+.result-preview { 
+    padding: 1.5rem 1rem; 
+    font-size: 1.6rem; 
+    word-break: break-word; 
+    cursor: pointer; 
+    transition: background-color 0.2s;
+}
+
+.result-preview:hover {
+    background-color: rgba(0,0,0,0.2);
+}
+
+/* --- LOAD MORE BUTTON & FOOTER --- */
+#loadMoreBtn { 
+    width: 100%; 
+    background-color: var(--primary-color); 
+    color: white; 
+    border: none; 
+    padding: 1rem; 
+    font-size: 1.1rem; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    font-weight: 700; 
+    transition: background-color 0.2s, transform 0.1s; 
+}
+#loadMoreBtn:active { transform: scale(0.98); }
 #loadMoreBtn:hover { background-color: #2a65c8; }
 #loadMoreBtn.hidden { display: none; }
 
-#toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background-color: var(--success-color); color: white; padding: 1rem 2rem; border-radius: 8px; font-weight: 600; box-shadow: 0 4px 20px rgba(0,0,0,0.4); transition: bottom 0.5s ease-in-out; }
+/* --- SEO CONTENT SECTION --- */
+.seo-content {
+    text-align: left;
+    margin-top: 3rem;
+    padding: 1.5rem;
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+.seo-content h2 { color: var(--primary-color); margin-bottom: 1rem; }
+.seo-content p { color: var(--subtle-text); line-height: 1.8; }
+
+/* --- "COPIED!" TOAST NOTIFICATION --- */
+#toast { 
+    position: fixed; 
+    bottom: -100px; /* Animation ke liye shuru mein hide rakhein */
+    left: 50%; 
+    transform: translateX(-50%); 
+    background-color: var(--success-color); 
+    color: white; 
+    padding: 1rem 2rem; 
+    border-radius: 8px; 
+    font-weight: 600; 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4); 
+    transition: bottom 0.5s ease-in-out; 
+    z-index: 1000;
+}
 #toast.show { bottom: 30px; }
