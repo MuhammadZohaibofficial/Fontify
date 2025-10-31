@@ -38,12 +38,13 @@ document.addEventListener('DOMContentLoaded', () => {
         applyTheme(newTheme);
     });
 
-    // --- CORE TEXT TRANSFORMATION ---
+    // --- CORE TEXT TRANSFORMATION (FIXED FOR UPPERCASE) ---
     const transformText = (text, style) => {
-        if (style.transform) return style.transform(text); // For special functions like strikethrough
+        if (style.transform) return style.transform(text); // For special functions
         let result = '';
         for (const char of text) {
-            result += style.map[char.toLowerCase()] || style.map[char.toUpperCase()] || char;
+            // Ab yeh har harf ko uske asli case mein hi dhoondega
+            result += style.map[char] || char; 
         }
         return result;
     };
@@ -69,7 +70,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         outputContainer.innerHTML += html;
 
-        // Hide "Load More" button if no more fonts
         if (endIndex >= fontLibrary.length) {
             loadMoreBtn.classList.add('hidden');
         } else {
