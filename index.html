@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fontify - Professional Font Tester</title>
+    
+    <!-- Google Fonts: Zyada fonts add kiye gaye hain -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@300;500;700&family=Oswald:wght@400;700&family=Montserrat:wght@400;700&family=Lobster&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Ubuntu:wght@400;700&family=Merriweather:wght@400;700&family=Lato:wght@400;700&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #00aaff;
+            --background-color: #121212;
+            --surface-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --dark-grey: #333333;
+        }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Poppins', sans-serif; background-color: var(--background-color); color: var(--text-color); line-height: 1.6; padding: 1.5rem; }
+        .container { max-width: 900px; margin: 0 auto; text-align: center; }
+        header h1 { font-family: 'Lobster', cursive; font-size: clamp(2.5rem, 8vw, 4rem); color: var(--primary-color); margin-bottom: 0.5rem; }
+        #userInput { width: 100%; height: 120px; padding: 1rem; font-size: clamp(1.2rem, 4vw, 1.5rem); border-radius: 8px; border: 2px solid var(--dark-grey); background-color: var(--surface-color); color: var(--text-color); margin: 1.5rem 0; resize: vertical; transition: border-color 0.3s ease; }
+        #userInput:focus { outline: none; border-color: var(--primary-color); }
+        #fontListContainer { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+        .font-card { background-color: var(--surface-color); border-radius: 8px; padding: 1.5rem; text-align: left; border: 1px solid var(--dark-grey); transition: transform 0.2s ease-out, box-shadow 0.2s ease-out; }
+        .font-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0, 170, 255, 0.15); }
+        .font-name { font-size: 1.25rem; font-weight: 500; color: var(--primary-color); border-bottom: 1px solid var(--dark-grey); padding-bottom: 0.75rem; margin-bottom: 1rem; }
+        .font-preview { font-size: 1.8rem; word-break: break-word; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Fontify</h1>
+            <p>Type anything to see the magic happen!</p>
+        </header>
+        <main>
+            <textarea id="userInput" placeholder="Your text here..."></textarea>
+            <div id="fontListContainer"></div>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const userInput = document.getElementById('userInput');
+            const fontListContainer = document.getElementById('fontListContainer');
+            const fonts = ['Roboto', 'Poppins', 'Oswald', 'Montserrat', 'Lobster', 'Playfair Display', 'Ubuntu', 'Merriweather', 'Lato', 'Raleway'];
+            const renderFontPreviews = () => {
+                const text = userInput.value.trim() || 'The Quick Brown Fox';
+                fontListContainer.innerHTML = fonts.map(font => `
+                    <div class="font-card">
+                        <div class="font-name">${font}</div>
+                        <p class="font-preview" style="font-family: '${font}', sans-serif;">${text}</p>
+                    </div>
+                `).join('');
+            };
+            userInput.addEventListener('input', renderFontPreviews);
+            renderFontPreviews();
+        });
+    </script>
+</body>
+      </html>
