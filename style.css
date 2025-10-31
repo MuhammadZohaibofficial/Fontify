@@ -1,147 +1,26 @@
-/* --- FONTIFY PRO V2 - STYLE.CSS --- */
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display-swap');
+/* --- TEXT TOOLS CARD - NAYI STYLING --- */
+/* (Yeh code apni style.css file ke aakhir mein paste karein) */
 
-:root {
-    --primary-color: #007AFF;
-    --background-color: #F0F2F5; /* Light grey background */
-    --surface-color: #FFFFFF; /* White cards */
-    --text-color: #1D1D1F; /* Dark text */
-    --subtle-text: #6E6E73;
-    --border-color: #E5E5EA;
-    --transition: 0.3s ease;
-}
-
-/* Basic Reset & Body */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background-color: var(--background-color);
-    color: var(--text-color);
-    padding: 1rem;
-    -webkit-font-smoothing: antialiased;
-}
-
-.container { max-width: 500px; margin: 0 auto; }
-
-/* Header & Menu Button */
-header {
-    display: flex;
-    align-items: center;
-    padding: 1rem 0;
-    margin-bottom: 1rem;
-}
-.menu-btn { background: none; border: none; cursor: pointer; padding: 0.5rem; }
-.menu-btn svg { fill: var(--text-color); }
-.header-title { font-size: 1.5rem; font-weight: 800; margin: 0 auto; transform: translateX(-12px); }
-
-/* Navigation Drawer (Hamburger Menu) */
-.nav-drawer {
-    position: fixed;
-    top: 0;
-    left: -300px; /* Shuru mein hide rakhein */
-    width: 280px;
-    height: 100%;
-    background-color: var(--surface-color);
-    box-shadow: 4px 0 20px rgba(0,0,0,0.1);
-    padding: 2rem;
-    transition: left var(--transition);
-    z-index: 1001;
-}
-.nav-drawer.open { left: 0; }
-.nav-drawer ul { list-style: none; }
-.nav-drawer ul li a { display: block; padding: 1rem 0; font-size: 1.1rem; font-weight: 700; text-decoration: none; color: var(--text-color); }
-.close-btn { position: absolute; top: 1rem; right: 1rem; font-size: 2rem; background: none; border: none; cursor: pointer; color: var(--subtle-text); }
-.nav-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    z-index: 1000;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity var(--transition), visibility var(--transition);
-}
-.nav-overlay.visible { opacity: 1; visibility: visible; }
-
-/* Card Layout */
-.card {
-    background-color: var(--surface-color);
-    border-radius: 20px;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
-.card-header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border-color); }
-.card-header h2 { font-size: 1.2rem; }
-.card-body { padding: 1.5rem; }
-
-/* Main Generator Card */
-#userInput {
-    width: 100%;
-    background: transparent;
-    border: none;
-    color: var(--text-color);
-    font-size: 1.8rem;
-    line-height: 1.5;
-    resize: none;
-    min-height: 50px;
-}
-#userInput:focus { outline: none; }
-#userInput::placeholder { color: #AEAEB2; }
-.stage-actions { display: flex; gap: 1rem; margin-top: 1rem; }
-.stage-actions button {
-    flex: 1;
-    padding: 0.8rem;
-    font-size: 1rem;
-    font-weight: 700;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: var(--transition);
-}
-#copyBtn { background-color: var(--primary-color); color: white; border: none; }
-#copyBtn:hover { background-color: #0056b3; }
-#resetBtn { background-color: var(--border-color); color: var(--text-color); border: none; }
-#resetBtn:hover { background-color: #D1D1D6; }
-
-/* Font Palette Card (3-Row Sliding Grid) */
-.font-grid-container { overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 1rem; }
-.font-grid {
+#tools-card .toolbar {
     display: grid;
-    grid-auto-flow: column;
-    grid-template-rows: repeat(3, auto);
-    grid-auto-columns: minmax(150px, 1fr);
-    gap: 1rem;
+    /* Ab yeh 3 columns mein dikhega, mobile par 2 */
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 0.75rem;
 }
-.font-grid::-webkit-scrollbar { display: none; }
-.font-item {
-    background-color: var(--background-color);
-    border-radius: 12px;
-    padding: 1rem;
-    text-align: center;
-    cursor: pointer;
-    transition: var(--transition);
-}
-.font-item:hover { transform: scale(1.05); }
-.font-item.active { background-color: var(--primary-color); color: white; }
-.font-preview { font-size: 1.2rem; }
-.font-name { font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem; }
 
-/* Text Tools Card */
-.toolbar { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.toolbar button {
+#tools-card .toolbar button {
     padding: 0.8rem;
-    background-color: var(--border-color);
-    color: var(--text-color);
-    border: none;
+    background-color: var(--background-color);
+    color: var(--subtle-text);
+    border: 1px solid var(--border-color);
     border-radius: 12px;
     font-size: 0.9rem;
-    font-weight: 700;
+    font-weight: 600;
     cursor: pointer;
     transition: var(--transition);
 }
-.toolbar button:hover { background-color: #D1D1D6; }
 
-/* Toast Notification */
-#toast { ... } /* Same as before */
+#tools-card .toolbar button:hover {
+    background-color: var(--border-color);
+    color: var(--text-color);
+}
