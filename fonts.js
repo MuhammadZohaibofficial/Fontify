@@ -46,6 +46,35 @@ const fontLibrary = [
     { name: 'Greek', category: 'Special', map: { a: 'α', b: 'β', c: '¢', d: '∂', e: 'є', f: 'ƒ', g: 'g', h: 'н', i: 'ι', j: 'נ', k: 'к', l: 'ℓ', m: 'м', n: 'η', o: 'σ', p: 'ρ', q: 'q', r: 'я', s: 'ѕ', t: 'т', u: 'υ', v: 'ν', w: 'ω', x: 'χ', y: 'у', z: 'z' } },
     
     // --- Many more styles can be added here following the same pattern ---
+    // --- FILE 1: GOTHIC & MEDIEVAL STYLES ---
+{ name: 'Old English Bold', category: 'Gothic', map: { a: '𝕬', b: '𝕭', c: '𝕮', d: '𝕯', e: '𝕰', f: '𝕱', g: '𝕲', h: '𝕳', i: '𝕴', j: '𝕵', k: '𝕶', l: '𝕷', m: '𝕸', n: '𝕹', o: '𝕺', p: '𝕻', q: '𝕼', r: '𝕽', s: '𝕾', t: '𝕿', u: '𝖀', v: '𝖁', w: '𝖂', x: '𝖃', y: '𝖄', z: '𝖅' } },
+{ name: 'Old English', category: 'Gothic', map: { a: '𝔞', b: '𝔟', c: '𝔠', d: '𝔡', e: '𝔢', f: '𝔣', g: '𝔤', h: '𝔥', i: '𝔦', j: '𝔧', k: '𝔨', l: '𝔩', m: '𝔪', n: '𝔫', o: '𝔬', p: '𝔭', q: '𝔮', r: '𝔯', s: '𝔰', t: '𝔱', u: '𝔲', v: '𝔳', w: '𝔴', x: '𝔵', y: '𝔶', z: '𝔷' } },
+{ name: 'Medieval Bold', category: 'Gothic', map: { a: '𝕬', b: '𝕭', c: '𝕮', d: '𝕯', e: '𝕰', f: '𝕱', g: '𝕲', h: '𝕳', i: '𝕴', j: '𝕵', k: '𝕶', l: '𝕷', m: '𝕸', n: '𝕹', o: '𝕺', p: '𝕻', q: '𝕼', r: '𝕽', s: '𝕾', t: '𝕿', u: '𝖀', v: '𝖁', w: '𝖂', x: '𝖃', y: '𝖄', z: '𝖅' } },
+{ name: 'Medieval', category: 'Gothic', map: { a: '𝖆', b: '𝖇', c: '𝖈', d: '𝖉', e: '𝖊', f: '𝖋', g: '𝖌', h: '𝖍', i: '𝖎', j: '𝖏', k: '𝖐', l: '𝖑', m: '𝖒', n: '𝖓', o: '𝖔', p: '𝖕', q: '𝖖', r: '𝖗', s: '𝖘', t: '𝖙', u: '𝖚', v: '𝖛', w: '𝖜', x: '𝖝', y: '𝖞', z: '𝖟' } },
+    // --- FILE 2: CURSIVE & SCRIPT STYLES ---
+{ name: 'Cursive Bold', category: 'Handwriting', map: { a: '𝓪', b: '𝓫', c: '𝓬', d: '𝓭', e: '𝓮', f: '𝓯', g: '𝓰', h: '𝓱', i: '𝓲', j: '𝓳', k: '𝓴', l: '𝓵', m: '𝓶', n: '𝓷', o: '𝓸', p: '𝓹', q: '𝓺', r: '𝓻', s: '𝓼', t: '𝓽', u: '𝓾', v: '𝓿', w: '𝔀', x: '𝔁', y: '𝔂', z: '𝔃' } },
+{ name: 'Cursive', category: 'Handwriting', map: { a: '𝒶', b: '𝒷', c: '𝒸', d: '𝒹', e: '𝑒', f: '𝒻', g: '𝑔', h: '𝒽', i: '𝒾', j: '𝒿', k: '𝓀', l: '𝓁', m: '𝓂', n: '𝓃', o: '𝑜', p: '𝓅', q: '𝓆', r: '𝓇', s: '𝓈', t: '𝓉', u: '𝓊', v: '𝓋', w: '𝓌', x: '𝓍', y: '𝓎', z: '𝓏' } },
+{ name: 'Script Bold', category: 'Handwriting', map: { 'A': '𝓐', 'B': '𝓑', 'C': '𝓒', 'D': '𝓓', 'E': '𝓔', 'F': '𝓕', 'G': '𝓖', 'H': '𝓗', 'I': '𝓘', 'J': '𝓙', 'K': '𝓚', 'L': '𝓛', 'M': '𝓜', 'N': '𝓝', 'O': '𝓞', 'P': '𝓟', 'Q': '𝓠', 'R': '𝓡', 'S': '𝓢', 'T': '𝓣', 'U': '𝓤', 'V': '𝓥', 'W': '𝓦', 'X': '𝓧', 'Y': '𝓨', 'Z': '𝓩' } },
+    // --- FILE 3: BOXED & CIRCLED STYLES ---
+{ name: 'Bubbles', category: 'Cute', map: { a: 'ⓐ', b: 'ⓑ', c: 'ⓒ', d: 'ⓓ', e: 'ⓔ', f: 'ⓕ', g: 'ⓖ', h: 'ⓗ', i: 'ⓘ', j: 'ⓙ', k: 'ⓚ', l: 'ⓛ', m: 'ⓜ', n: 'ⓝ', o: 'ⓞ', p: 'ⓟ', q: 'ⓠ', r: 'ⓡ', s: 'ⓢ', t: 'ⓣ', u: 'ⓤ', v: 'ⓥ', w: 'ⓦ', x: 'ⓧ', y: 'ⓨ', z: 'ⓩ' } },
+{ name: 'Squares', category: 'Boxed', map: { a: '🄰', b: '🄱', c: '🄲', d: '🄳', e: '🄴', f: '🄵', g: '🄶', h: '🄷', i: '🄸', j: '🄹', k: '🄺', l: '🄻', m: '🄼', n: '🄽', o: '🄾', p: '🄿', q: '🅀', r: '🅁', s: '🅂', t: '🅃', u: '🅄', v: '🅅', w: '🅆', x: '🅇', y: '🅈', z: '🅉' } },
+{ name: 'Negative Squares', category: 'Boxed', map: { a: '🅰', b: '🅱', c: '🅲', d: '🅳', e: '🅴', f: '🅵', g: '🅶', h: '🅷', i: '🅸', j: '🅹', k: '🅺', l: '🅻', m: '🅼', n: '🅽', o: '🅾', p: '🅿', q: '🆀', r: '🆁', s: '🆂', t: '🆃', u: '🆄', v: '🆅', w: '🆆', x: '🆇', y: '🆈', z: '🆉' } },
+{ name: 'Parenthesized', category: 'Fun', map: { a: '⒜', b: '⒝', c: '⒞', d: '⒟', e: '⒠', f: '⒡', g: '⒢', h: '⒣', i: '⒤', j: '⒥', k: '⒦', l: '⒧', m: '⒨', n: '⒩', o: '⒪', p: '⒫', q: '⒬', r: '⒭', s: '⒮', t: '⒯', u: '⒰', v: '⒱', w: '⒲', x: '⒳', y: '⒴', z: '⒵' } },```
+
+#### **File 4: Decorated & Symbol Styles**
+
+```javascript
+// --- FILE 4: DECORATED & SYMBOL STYLES ---
+{ name: 'Stars', category: 'Cute', transform: (text) => text.split('').map(c => `⭐${c}`).join('') },
+{ name: 'Hearts', category: 'Cute', transform: (text) => text.split('').map(c => `♡${c}♡`).join('') },
+{ name: 'Arrows', category: 'Special', transform: (text) => text.split('').map(c => `➢${c}`).join('') },
+{ name: 'Lightning', category: 'Fun', transform: (text) => '⚡' + text + '⚡' },
+{ name: 'Underline Wave', category: 'Special', transform: (text) => text + '̴' },
+// --- FILE 5: TECH & SCI-FI STYLES ---
+{ name: 'Monospace', category: 'Tech', map: { a: '𝚊', b: '𝚋', c: '𝚌', d: '𝚍', e: '𝚎', f: '𝚏', g: '𝚐', h: '𝚑', i: '𝚒', j: '𝚓', k: '𝚔', l: '𝚕', m: '𝚖', n: '𝚗', o: '𝚘', p: '𝚙', q: '𝚚', r: '𝚛', s: '𝚜', t: '𝚝', u: '𝚞', v: '𝚟', w: '𝚠', x: '𝚡', y: '𝚢', z: '𝚣' } },
+{ name: 'Double Struck', category: 'Special', map: { a: '𝕒', b: '𝕓', c: '𝕔', d: '𝕕', e: '𝕖', f: '𝕗', g: '𝕘', h: '𝕙', i: '𝕚', j: '𝕛', k: '𝕜', l: '𝕝', m: '𝕞', n: '𝕟', o: '𝕠', p: '𝕡', q: '𝕢', r: '𝕣', s: '𝕤', t: '𝕥', u: '𝕦', v: '𝕧', w: '𝕨', x: '𝕩', y: '𝕪', z: '𝕫' } },
+{ name: 'Matrix', category: 'Tech', transform: (text) => text.split('').map(c => c.toUpperCase()).join(' ') },
+{ name: 'Zalgo (Glitch)', category: 'Fun', transform: (text) => text.split('').map(c => c + '͑͒̾͒'.split('').sort(() => 0.5 - Math.random()).join('')).join('') },
     // Example of adding another style
     { name: 'Hearts', category: 'Cute', transform: (text) => text.split('').map(c => `♡${c}♡`).join('') },
     // A sample of 300+ fonts would make this file extremely long to display here.
