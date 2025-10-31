@@ -2,50 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fontify: Fancy Text Generator (Copy & Paste) for Instagram & TikTok</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Fontify Studio</title>
     <!-- ... aapke baaqi meta tags ... -->
     <link rel="stylesheet" href="style.css">
-    <!-- Schema Markup waghera sab waise hi rahega -->
 </head>
-<body>
-    <!-- Naya Background Effect -->
-    <div class="background-blur"></div>
+<body class="dark-mode">
 
-    <div class="container">
-        <header>
-            <h1>Fontify</h1>
-            <div class="theme-switcher">
-                <input type="checkbox" id="themeToggle">
-                <label for="themeToggle" class="slider"></label>
+    <!-- The "Stage" where user types and sees the result -->
+    <div class="stage">
+        <textarea id="userInput" placeholder="Type here..."></textarea>
+        <div class="stage-toolbar">
+            <div class="counters">
+                <span id="charCount">0 Chars</span> | <span id="wordCount">0 Words</span>
             </div>
-        </header>
-
-        <main>
-            <div class="input-card">
-                <textarea id="userInput" placeholder="Type something amazing..."></textarea>
-                <div class="counters">
-                    <span>Words: <b id="wordCount">0</b></span>
-                    <span>Characters: <b id="charCount">0</b></span>
-                </div>
+            <div class="actions">
+                <button id="resetBtn" title="Original Text">🔄</button>
+                <button id="copyBtn" title="Copy Text">📋</button>
             </div>
-            
-            <div class="toolbar">
-                <button id="btn-uppercase">UPPERCASE</button>
-                <button id="btn-lowercase">lowercase</button>
-                <button id="btn-titlecase">Title Case</button>
-                <button id="btn-reverse">Reverse</button>
-                <button id="btn-clear">Clear</button>
-            </div>
-            
-            <div id="outputContainer"></div>
-            
-            <button id="loadMoreBtn">Load More Styles</button>
-        </main>
+        </div>
     </div>
-    <div id="toast">Copied to clipboard!</div>
+
+    <!-- The "Palette" with horizontally sliding fonts -->
+    <div class="palette">
+        <div class="palette-header">
+            <h3>Choose a Style</h3>
+        </div>
+        <div class="font-list-container" id="fontListContainer">
+            <!-- JavaScript yahan sliding fonts daalega -->
+        </div>
+    </div>
+
+    <!-- The App-Style Tab Bar -->
+    <nav class="tab-bar">
+        <button class="tab-item active" data-tab="generator">🖋️<br><span>Generator</span></button>
+        <button class="tab-item" data-tab="decorations">✨<br><span>Decorate</span></button>
+        <button class="tab-item" data-tab="favorites">❤️<br><span>Favorites</span></button>
+        <button class="tab-item" data-tab="settings">⚙️<br><span>Settings</span></button>
+    </nav>
+    
+    <div id="toast">Copied!</div>
 
     <script src="fonts.js"></script>
     <script src="script.js"></script>
 </body>
-                    </html>
+</html>
