@@ -1,101 +1,121 @@
+// --- FONTIFY STUDIO PRO - SCRIPT.JS ---
+
 document.addEventListener('DOMContentLoaded', () => {
     // DOM Elements
     const userInput = document.getElementById('userInput');
+    const textareaWrapper = document.querySelector('.textarea-wrapper');
     const fontListContainer = document.getElementById('fontListContainer');
     const copyBtn = document.getElementById('copyBtn');
     const resetBtn = document.getElementById('resetBtn');
-    const charCountEl = document.getElementById('charCount');
-    const wordCountEl = document.getElementById('wordCount');
+    const toast = document.getElementById('toast');
 
-    let originalText = '';
-    let activeStyle = null;
+    // State Variables
+    let originalText = ''; // User ka asli, non-styled text yahan save hoga
+    let activeStyleName = null; // Jo font style select kiya gaya hai, uska naam
 
-    // --- Font Palette ko Banana ---
+    // --- SMART TEXTBOX (AUTO-RESIZE) ---
+    // Yeh function text ke hisab se text box ka size badalta hai
+    const autoResizeTextarea = () => {
+        // Yeh content ko replicate karke aek invisible div mein daalta hai taake height pata chale
+        textareaWrapper.dataset.replicatedValue = userInput.value;
+    };
+    userInput.addEventListener('input', autoResizeTextarea);
+
+    // --- CORE TEXT TRANSFORMATION ---
+    const transformText = (text, styleName) => {
+        if (!styleName) return text; // Agar koi style select nahi, to original text dikhao
+        
+        const style = fontLibrary.find(s => s.name === styleName);
+        if (!style) return text; // Agar style na mile, to original text dikhao
+
+        if (style.transform) return style.transform(text); // Special functions ke liye
+        
+        let result = '';
+        for (const char of text) {
+            result += style.map[char] || char; // Character map se badlo
+        }
+        return result;
+    };
+
+    // --- FONT PALETTE RENDERING ---
+    // Yeh neeche sliding font list banata hai
     const renderPalette = () => {
         let html = '';
         for (const style of fontLibrary) {
             html += `
                 <div class="font-item" data-style-name="${style.name}">
-                    <div class="font-preview">${transformText('Aa', style)}</div>
-                    <div class="font-name">${style.name}</div>
+                    <div class="font-preview">${transformText('Style', style.name)}</div>
                 </div>
             `;
         }
         fontListContainer.innerHTML = html;
     };
 
-    // --- Core Logic ---
-    const transformText = (text, style) => {
-        if (!style) return text; // Agar koi style select nahi hai, to original text dikhao
-        if (style.transform) return style.transform(text);
-        let result = '';
-        for (const char of text) {
-            result += style.map[char] || char;
-        }
-        return result;
-    };
-
+    // --- STAGE UPDATE LOGIC ---
+    // Yeh function upar "Stage" wale text ko update karta hai
     const updateStage = () => {
-        const currentStyle = fontLibrary.find(s => s.name === activeStyle);
-        userInput.value = transformText(originalText, currentStyle);
-        updateCounters();
+        userInput.value = transformText(originalText, activeStyleName);
+        autoResizeTextarea(); // Size bhi update karo
     };
 
-    const updateCounters = () => {
-        const text = userInput.value;
-        charCountEl.textContent = `${text.length} Chars`;
-        wordCountEl.textContent = `${text.trim() === '' ? 0 : text.trim().split(/\s+/).length} Words`;
-    };
+    // --- EVENT LISTENERS ---
 
-    // --- Event Listeners ---
+    // Jab user text box mein kuch likhe
     userInput.addEventListener('input', () => {
-        // Jab user type kare, to original text save karo aur stage update karo
-        if (activeStyle === null) {
+        // Har baar jab user likhe, hum original text ko update karenge
+        if (activeStyleName) {
+            // Agar koi style laga hua hai, to hum usay hata kar original text update karenge
+            // Yeh thora complex ho sakta hai, isliye hum reset ka istemal karenge
+            // Aasan tareeka:
             originalText = userInput.value;
-            updateCounters();
+            activeStyleName = null;
+            document.querySelector('.font-item.active')?.classList.remove('active');
         } else {
-            // Agar koi style laga hua hai, to usay pehle reset karo
-            const currentStyle = fontLibrary.find(s => s.name === activeStyle);
-            // Yeh thora tricky hai, humein aesa system banana hoga ke original text yaad rahe
-            // Asaan tareeka yeh hai ke hum original text ko hamesha yaad rakhein
-            // Is logic ko behtar banate hain:
-            resetToOriginal();
             originalText = userInput.value;
-            updateCounters();
         }
     });
 
+    // Jab user neeche sliding palette se koi font select kare
     fontListContainer.addEventListener('click', (e) => {
         const fontItem = e.target.closest('.font-item');
         if (!fontItem) return;
 
-        // Purane active item se active class hatao
+        // Purane active item se 'active' class hatao
         document.querySelector('.font-item.active')?.classList.remove('active');
-        // Naye item par active class lagao
+        
+        // Naye item par 'active' class lagao
         fontItem.classList.add('active');
-
-        activeStyle = fontItem.dataset.styleName;
-        originalText = userInput.value; // Text ko save karo
-        updateStage(); // Foran stage update karo
+        
+        // Naya style save karo aur stage update karo
+        activeStyleName = fontItem.dataset.styleName;
+        originalText = userInput.value; // Text ko save karlo
+        updateStage();
     });
     
-    const resetToOriginal = () => {
-        activeStyle = null;
+    // Reset Button ka Logic
+    resetBtn.addEventListener('click', () => {
+        activeStyleName = null;
         userInput.value = originalText;
         document.querySelector('.font-item.active')?.classList.remove('active');
-    }
-
-    resetBtn.addEventListener('click', () => {
-        resetToOriginal();
-        updateCounters();
+        autoResizeTextarea();
     });
 
+    // Copy Button ka Logic
     copyBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText(userInput.value);
-        // Toast notification ka logic yahan aayega
+        if (!userInput.value) return; // Agar box khali hai to kuch na karo
+        
+        navigator.clipboard.writeText(userInput.value).then(() => {
+            // Toast notification dikhao
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 2000);
+        });
     });
 
-    // --- Initial Load ---
+    // --- INITIALIZATION ---
+    // Page load hone par palette banao
     renderPalette();
-    updateCounters();
+    // Shuru mein text box ka size set karo
+    autoResizeTextarea();
 });
