@@ -3,62 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fontify Studio - Pro</title>
+    <title>Fontify Pro v2 - The Ultimate Font Toolkit</title>
     <!-- Baaqi saare meta tags (SEO, etc.) yahan aayenge -->
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="dark-mode">
+<body class="light-mode">
 
-    <!-- Background Gradient Effects -->
-    <div class="gradient-bg">
-        <div class="gradient-ball-1"></div>
-        <div class="gradient-ball-2"></div>
-        <div class="gradient-ball-3"></div>
-    </div>
+    <!-- Hamburger Menu (Side Navigation Drawer) -->
+    <nav id="nav-drawer" class="nav-drawer">
+        <button id="close-nav-btn" class="close-btn">&times;</button>
+        <ul>
+            <li><a href="#generator-card">Font Generator</a></li>
+            <li><a href="#palette-card">Explore Styles</a></li>
+            <li><a href="#tools-card">Text Tools</a></li>
+            <li><a href="#">Favorites</a></li>
+            <li><a href="#">About Us</a></li>
+        </ul>
+    </nav>
+    <div id="nav-overlay" class="nav-overlay"></div>
 
     <div class="container">
         <header>
-            <h1>Fontify Studio</h1>
-            <p>The Ultimate Playground for Your Text</p>
+            <button id="open-nav-btn" class="menu-btn">
+                <svg width="24" height="24" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+            </button>
+            <span class="header-title">Fontify</span>
+            <!-- Theme switcher can go here -->
         </header>
 
         <main>
-            <!-- The "Stage" (Smart Text Box) -->
-            <div class="stage-container">
-                <div class="textarea-wrapper">
-                    <textarea id="userInput" placeholder="Start typing here..." rows="1"></textarea>
+            <!-- Card 1: The Main Generator -->
+            <section id="generator-card" class="card">
+                <div class="card-header">
+                    <h2>Generator</h2>
                 </div>
-                <div class="stage-actions">
-                    <button id="resetBtn" title="Reset to Original">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.3"/></svg>
-                        <span>Reset</span>
-                    </button>
-                    <button id="copyBtn" title="Copy to Clipboard">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
-                        <span>Copy</span>
-                    </button>
+                <div class="card-body">
+                    <div class="textarea-wrapper">
+                        <textarea id="userInput" placeholder="Start typing here..." rows="1"></textarea>
+                    </div>
+                    <div class="stage-actions">
+                        <button id="resetBtn">Reset</button>
+                        <button id="copyBtn">Copy</button>
+                    </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- The "Palette" (Sliding Fonts Area) -->
-            <div class="palette-container">
-                <div class="font-list-wrapper" id="fontListContainer">
-                    <!-- JavaScript will populate this with font styles -->
+            <!-- Card 2: The Font Palette -->
+            <section id="palette-card" class="card">
+                <div class="card-header">
+                    <h2>Explore Styles</h2>
                 </div>
-            </div>
+                <div class="card-body">
+                    <div class="filters">
+                        <input type="search" id="searchInput" placeholder="Search fonts...">
+                        <!-- Category pills will be added by JS here -->
+                    </div>
+                    <div class="font-grid-container">
+                        <div class="font-grid" id="fontGrid">
+                            <!-- JS will populate this with a 3-row grid -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Card 3: New Features - Text Tools -->
+            <section id="tools-card" class="card">
+                <div class="card-header">
+                    <h2>Text Tools</h2>
+                </div>
+                <div class="card-body">
+                    <div class="toolbar">
+                        <button id="btn-uppercase">Uppercase</button>
+                        <button id="btn-lowercase">Lowercase</button>
+                        <button id="btn-titlecase">Title Case</button>
+                        <button id="btn-reverse">Reverse Text</button>
+                    </div>
+                    <!-- More tools can be added here -->
+                </div>
+            </section>
 
-            <!-- Other tools will go here in the future -->
         </main>
-
-        <footer>
-            <p>Designed for Creatives</p>
-        </footer>
     </div>
     
-    <div id="toast">Copied to clipboard!</div>
+    <div id="toast">Copied!</div>
 
     <!-- Scripts -->
     <script src="fonts.js"></script>
     <script src="script.js"></script>
 </body>
-</html>
+                            </html>
