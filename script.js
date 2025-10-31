@@ -1,4 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // --- SETTINGS (Yahan se aap fonts ki taadad badal sakte hain) ---
+    const FONTS_PER_PAGE = 20; // Ek baar mein 20 fonts load honge
+
     // DOM Elements
     const themeToggle = document.getElementById('themeToggle');
     const userInput = document.getElementById('userInput');
@@ -16,7 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const btnClear = document.getElementById('btn-clear');
 
     // State
-    const FONTS_PER_PAGE = 15;
     let currentPage = 1;
     let currentInputText = '';
 
@@ -38,18 +40,17 @@ document.addEventListener('DOMContentLoaded', () => {
         applyTheme(newTheme);
     });
 
-    // --- CORE TEXT TRANSFORMATION (FIXED FOR UPPERCASE) ---
+    // --- CORE TEXT TRANSFORMATION ---
     const transformText = (text, style) => {
-        if (style.transform) return style.transform(text); // For special functions
+        if (style.transform) return style.transform(text);
         let result = '';
         for (const char of text) {
-            // Ab yeh har harf ko uske asli case mein hi dhoondega
             result += style.map[char] || char; 
         }
         return result;
     };
 
-    // --- PAGINATION & RENDERING ---
+    // --- PAGINATION & RENDERING (MASLA YAHAN THEEK KIYA GAYA HAI) ---
     const renderFonts = () => {
         const startIndex = (currentPage - 1) * FONTS_PER_PAGE;
         const endIndex = startIndex + FONTS_PER_PAGE;
@@ -70,6 +71,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         outputContainer.innerHTML += html;
 
+        // *** YEH HAI ASAL FIX ***
+        // Ab yeh check karega ke kia aur fonts baaqi hain.
+        // Agar hain, to button nazar aayega. Agar nahi, to chhup jayega.
         if (endIndex >= fontLibrary.length) {
             loadMoreBtn.classList.add('hidden');
         } else {
@@ -80,13 +84,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const resetAndRender = () => {
         currentPage = 1;
         currentInputText = userInput.value;
-        outputContainer.innerHTML = '';
+        outputContainer.innerHTML = ''; // Sirf yahan par container ko saaf karein
         renderFonts();
         updateCounters();
     };
     
     // --- EVENT LISTENERS ---
     userInput.addEventListener('input', resetAndRender);
+    
     loadMoreBtn.addEventListener('click', () => {
         currentPage++;
         renderFonts();
