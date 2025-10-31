@@ -1,89 +1,129 @@
-/* --- FONTIFY STUDIO - STYLE.CSS --- */
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;800&display=swap');
+/* --- FONTIFY STUDIO PRO - STYLE.CSS --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
 
 :root {
-    --bg-dark: #121212;
-    --surface-dark: #1e1e1e;
-    --text-dark: #e0e0e0;
-    --primary-dark: #0A84FF;
-    --border-dark: #3a3a3c;
+    --bg-dark: #0D1117;
+    --surface-dark: #161B22;
+    --text-dark: #C9D1D9;
+    --primary-color: #58A6FF;
+    --border-dark: #30363D;
     
-    --bg-light: #f2f2f7;
-    --surface-light: #ffffff;
-    --text-light: #1c1c1e;
-    --primary-light: #007aff;
-    --border-light: #e5e5ea;
-
-    --transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    --transition: 0.3s ease;
 }
 
+/* Basic Reset & Body */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-    font-family: 'Manrope', sans-serif;
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    overflow: hidden; /* Main page ko scroll hone se rokna */
+    font-family: 'Inter', sans-serif;
     background-color: var(--bg-dark);
     color: var(--text-dark);
-    transition: var(--transition);
+    padding: 2rem 1rem;
+    -webkit-font-smoothing: antialiased;
 }
-body.light-mode { background-color: var(--bg-light); color: var(--text-light); }
 
-/* The Stage (Top Area) */
-.stage {
-    flex: 1; /* Jitni bhi jagah bache, le lo */
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    background-color: var(--surface-dark);
-    transition: var(--transition);
+.container { max-width: 700px; margin: 0 auto; }
+
+/* Background Gradient Effects */
+.gradient-bg { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; overflow: hidden; }
+.gradient-ball-1, .gradient-ball-2, .gradient-ball-3 {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
 }
-body.light-mode .stage { background-color: var(--surface-light); }
+.gradient-ball-1 { width: 400px; height: 400px; background: rgba(88, 166, 255, 0.2); top: -100px; left: -100px; }
+.gradient-ball-2 { width: 300px; height: 300px; background: rgba(255, 88, 203, 0.15); bottom: -50px; right: -50px; }
+.gradient-ball-3 { width: 250px; height: 250px; background: rgba(88, 255, 155, 0.1); bottom: 100px; left: 50px; }
+
+/* Header */
+header { text-align: center; margin-bottom: 3rem; }
+header h1 { font-size: 2.5rem; font-weight: 700; }
+header p { font-size: 1.1rem; color: #8B949E; margin-top: 0.5rem; }
+
+/* The "Stage" (Smart Text Box) */
+.stage-container {
+    background-color: var(--surface-dark);
+    border: 1px solid var(--border-dark);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.textarea-wrapper {
+    position: relative;
+    display: grid;
+}
+.textarea-wrapper::after {
+    content: attr(data-replicated-value) " ";
+    white-space: pre-wrap;
+    visibility: hidden;
+    grid-area: 1 / 1 / 2 / 2;
+    padding: inherit;
+    font: inherit;
+    border: inherit;
+}
 
 #userInput {
-    flex: 1;
+    grid-area: 1 / 1 / 2 / 2;
     width: 100%;
     background: transparent;
     border: none;
-    color: inherit;
-    font-size: 2.5rem;
-    line-height: 1.4;
+    color: var(--text-dark);
+    font-size: 2rem;
+    line-height: 1.5;
     resize: none;
+    overflow: hidden; /* Scrollbar chupane ke liye */
 }
 #userInput:focus { outline: none; }
+#userInput::placeholder { color: #484F58; }
 
-.stage-toolbar { display: flex; justify-content: space-between; align-items: center; padding-top: 1rem; }
-.counters { font-size: 0.9rem; opacity: 0.6; }
-.actions button { background: none; border: none; font-size: 1.5rem; cursor: pointer; color: inherit; opacity: 0.7; transition: var(--transition); }
-.actions button:hover { opacity: 1; transform: scale(1.1); }
-
-/* The Palette (Bottom Sliding Area) */
-.palette {
-    flex-shrink: 0; /* Iska size fix rahega */
-    padding: 1.5rem 0;
+.stage-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
     border-top: 1px solid var(--border-dark);
-    background-color: var(--bg-dark);
+}
+
+.stage-actions button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: transparent;
+    border: 1px solid var(--border-dark);
+    color: var(--text-dark);
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 0.9rem;
     transition: var(--transition);
 }
-body.light-mode .palette { border-top-color: var(--border-light); background-color: var(--bg-light); }
-.palette-header { font-size: 1.2rem; font-weight: 800; margin: 0 1.5rem 1.5rem 1.5rem; }
+.stage-actions button:hover {
+    background-color: var(--border-dark);
+    border-color: #58A6FF;
+    color: #58A6FF;
+}
+.stage-actions button svg { width: 18px; height: 18px; }
 
-.font-list-container {
+/* The "Palette" (Sliding Fonts Area) */
+.palette-container { margin-top: 3rem; }
+
+.font-list-wrapper {
     display: flex;
     gap: 1rem;
-    padding: 0 1.5rem;
-    overflow-x: auto; /* YEH HAI SLIDING KA JADOO */
-    scroll-snap-type: x mandatory; /* Har font par rukega */
-    -webkit-overflow-scrolling: touch; /* iOS par smooth scrolling */
-    scrollbar-width: none; /* Firefox mein scrollbar chupana */
+    padding: 1rem 0;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none; /* Firefox */
 }
-.font-list-container::-webkit-scrollbar { display: none; } /* Chrome/Safari mein scrollbar chupana */
+.font-list-wrapper::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 
 .font-item {
-    flex: 0 0 180px; /* Har item ki chaurai */
-    padding: 1rem;
+    flex: 0 0 auto;
+    padding: 1rem 1.5rem;
     background-color: var(--surface-dark);
     border: 1px solid var(--border-dark);
     border-radius: 12px;
@@ -92,25 +132,19 @@ body.light-mode .palette { border-top-color: var(--border-light); background-col
     transition: var(--transition);
     scroll-snap-align: start;
 }
-body.light-mode .font-item { background-color: var(--surface-light); border-color: var(--border-light); }
-.font-item:hover { transform: translateY(-5px); border-color: var(--primary-dark); }
-.font-item.active { border-color: var(--primary-dark); box-shadow: 0 0 15px rgba(10, 132, 255, 0.3); }
-.font-preview { font-size: 1.8rem; margin-bottom: 0.5rem; }
-.font-name { font-size: 0.8rem; font-weight: 600; opacity: 0.7; }
-
-/* The Tab Bar */
-.tab-bar {
-    display: flex;
-    justify-content: space-around;
-    padding: 0.5rem 0;
-    border-top: 1px solid var(--border-dark);
-    background-color: var(--surface-dark);
-    transition: var(--transition);
+.font-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
 }
-body.light-mode .tab-bar { border-top-color: var(--border-light); background-color: var(--surface-light); }
+.font-item.active {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
+    color: var(--primary-color);
+}
+.font-preview { font-size: 1.5rem; }
 
-.tab-item { background: none; border: none; color: inherit; opacity: 0.5; text-align: center; cursor: pointer; transition: var(--transition); }
-.tab-item span { font-size: 0.7rem; }
-.tab-item.active { opacity: 1; color: var(--primary-dark); transform: translateY(-3px); }
+/* Footer */
+footer { text-align: center; margin-top: 4rem; color: #484F58; }
 
-#toast { ... } /* Toast notification ki styling waisi hi rahegi */
+/* Toast Notification (same as before) */
+#toast { ... }
