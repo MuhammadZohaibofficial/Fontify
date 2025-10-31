@@ -8,22 +8,25 @@
 </head>
 <body class="light-mode">
 
-    <!-- Hamburger Menu (Side Navigation Drawer) -->
     <nav id="nav-drawer" class="nav-drawer">
-        <!-- ... (Menu ka code waisa hi rahega) ... -->
+        <button id="close-nav-btn" class="close-btn">&times;</button>
+        <ul>
+            <li><a href="#generator-card">Font Generator</a></li>
+            <li><a href="#tools-card">Text Tools</a></li>
+            <li><a href="#palette-card">Explore Styles</a></li>
+        </ul>
     </nav>
     <div id="nav-overlay" class="nav-overlay"></div>
 
     <div class="container">
         <header>
             <button id="open-nav-btn" class="menu-btn">
-                <svg width="24" height="24" viewBox="0 0 24 24"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg>
             </button>
             <span class="header-title">Fontify</span>
         </header>
 
         <main>
-            <!-- Card 1: The Main Generator -->
             <section id="generator-card" class="card">
                 <div class="card-header"><h2>Generator</h2></div>
                 <div class="card-body">
@@ -37,7 +40,6 @@
                 </div>
             </section>
 
-            <!-- Card 2: New Features - Text Tools (SAHI JAGAH PAR) -->
             <section id="tools-card" class="card">
                 <div class="card-header"><h2>Text Tools</h2></div>
                 <div class="card-body">
@@ -46,21 +48,17 @@
                         <button id="btn-lowercase">Lowercase</button>
                         <button id="btn-titlecase">Title Case</button>
                         <button id="btn-reverse">Reverse Text</button>
-                        <!-- NAYE BUTTONS YAHAN ADD KIYE GAYE HAIN -->
                         <button id="btn-clear">Clear Text</button>
                         <button id="btn-download">Download .txt</button>
                     </div>
                 </div>
             </section>
             
-            <!-- Card 3: The Font Palette -->
             <section id="palette-card" class="card">
                 <div class="card-header"><h2>Explore Styles</h2></div>
                 <div class="card-body">
                     <div class="font-grid-container">
-                        <div class="font-grid" id="fontGrid">
-                            <!-- JS will populate this with a 3-row grid -->
-                        </div>
+                        <div class="font-grid" id="fontGrid"></div>
                     </div>
                 </div>
             </section>
@@ -72,4 +70,4 @@
     <script src="fonts.js"></script>
     <script src="script.js"></script>
 </body>
-</html>
+    </html>
