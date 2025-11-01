@@ -294,11 +294,7 @@ const fontLibrary = [
             'N': '𝒩', 'O': '𝒪', 'P': '𝒫', 'Q': '𝒬', 'R': 'ℛ', 'S': '𝒮', 'T': '𝒯', 'U': '𝒰', 'V': '𝒱', 'W': '𝒲', 'X': '𝒳', 'Y': '𝒴', 'Z': '𝒵'
         }
     },
-
-    // FONT LIBRARY PART 1 - BASIC & MATHEMATICAL FONTS (30 FONTS)
-
-const fontLibraryPart1 = [
-    // --- MATHEMATICAL FONTS ---
+ 
     {
         name: 'Math Bold',
         category: 'Mathematical',
